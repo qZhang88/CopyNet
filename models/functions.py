@@ -26,8 +26,8 @@ def toData(batch):
     out_len = []
     for line in batch:
         inputs, outputs, _ = line.split('\t')
-        inputs_.append([int(num) for num in inputs.split(',')] + [1])
-        outputs_.append([int(num) for num in outputs.split(',')] + [1])
+        inputs_.append([int(num) for num in inputs.split(',')] + [1])    # add eos
+        outputs_.append([int(num) for num in outputs.split(',')] + [1])  # add eos
         in_len.append(len(inputs_[-1]))
         out_len.append(len(outputs_[-1]))
     in_len = np.array(in_len)
@@ -40,6 +40,7 @@ def toData(batch):
     for b in range(batch_size):
         input_out[b][:in_len[b]] = np.array(inputs_[b])
         output_out[b][:out_len[b]] = np.array(outputs_[b])
+    # sort descending
     out_rev = out_len.argsort()[::-1]
     return input_out[out_rev], output_out[out_rev], in_len[out_rev], out_len[out_rev]
 

@@ -5,6 +5,10 @@ import spacy
 class Vocab(object):
 
     def __init__(self, max_size):
+        # 0: <PAD>
+        # 1: <UNK>
+        # 2: <SOS>
+        # 3: <EOS>
         self.w2i = {}
         self.i2w = {}
         self.count = 0
